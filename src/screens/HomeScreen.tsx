@@ -10,6 +10,7 @@ import {
   TextInput,
   Button,
   SectionList,
+  TouchableOpacity,
 } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { v4 as uuidv4 } from 'react-native-uuid';
@@ -93,8 +94,8 @@ const HomeScreen = ({ navigation }: Props) => {
                   <ListRow
                     title={item.name}
                     description={mediaTypeDescriptionMap[item.type]}
-                    // prefix={format(new Date(item.watchedTime), "dd")}
-                    prefix="04"
+                    prefix={index === 0 ? format(new Date(item.watchedTime), "dd") : undefined}
+                    // prefix="04"
                   />
                 )
               }}
@@ -102,6 +103,13 @@ const HomeScreen = ({ navigation }: Props) => {
                 <Text style={styles.sectionHeader}>{title}</Text>
               )}
             />
+            <View style={styles.addButtonWrapper}>
+              <TouchableOpacity
+                onPress={() => {}}
+                style={styles.addButton}>
+                <Text style={styles.addButtonText}>Add</Text>
+              </TouchableOpacity>
+            </View>
           </View>
       </SafeAreaView>
     </>
@@ -119,6 +127,29 @@ const styles = StyleSheet.create({
       fontFamily: typography.family.mono,
       fontSize: 14,
       lineHeight: 20,
+    },
+    addButtonWrapper: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 20,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    addButton: {
+      width: 80,
+      height: 80,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 100,
+      backgroundColor: '#595D80',
+    },
+    addButtonText: {
+      textTransform: "uppercase",
+      color: colors.foreground,
+      fontFamily: typography.family.expanded,
+      fontSize: typography.size.text.m,
+      lineHeight: typography.lineheight.body.m,
     }
 });
 

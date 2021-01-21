@@ -14,7 +14,12 @@ export const ListRow = ({ title, description, prefix, children }: Props) => {
   return (
     <View style={containerStyle}>
       <View>
-        {!!prefix && <Text style={styles.prefix}>{prefix}</Text>}
+        {/* 
+            Monospace font so we can be cheeky and just render
+            two blank spaces for rows where we don't include a
+            prefix to get the alignment right 😈
+        */}
+        {<Text style={styles.prefix}>{prefix || "  "}</Text>}
       </View>
       <View style={styles.fill}>
         {!!title && <Text style={styles.title}>{title}</Text>}
