@@ -30,7 +30,7 @@ const App = () => {
                 headerTitleAlign: "left",
                 headerTitleStyle: {
                   textTransform: 'uppercase',
-                  fontFamily: typography.family.display.bold,
+                  fontFamily: typography.family.expanded,
                   fontSize: 34,
                   color: colors.foreground,
                 },

@@ -55,12 +55,9 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>GTAmerica-Bold.ttf</string>
-		<string>GTAmerica-Medium.ttf</string>
 		<string>GTAmerica-Regular.ttf</string>
-		<string>GTAmericaMono-Bold.ttf</string>
-		<string>GTAmericaMono-Medium.ttf</string>
 		<string>GTAmericaMono-Regular.ttf</string>
+		<string>GTAmerica-ExpandedBold.ttf</string>
 	</array>
 </dict>
 </plist>

@@ -12,7 +12,7 @@ export enum MediaType {
 
 interface Entry {
     id: string;
-    type: MediaType | string;
+    type: MediaType;
     name: string;
     watchedTime: string;
     year: number;
@@ -40,7 +40,7 @@ export const { actions, reducer } = createSlice({
     name: "log",
     initialState,
     reducers: {
-      logEntry: (state, action: PayloadAction<{ id: string; type: MediaType | string; name: string; watchedTime: Date; }>) => {
+      logEntry: (state, action: PayloadAction<{ id: string; type: MediaType; name: string; watchedTime: Date; }>) => {
         const id = action.payload.id;
 
         const entrty: Entry = {

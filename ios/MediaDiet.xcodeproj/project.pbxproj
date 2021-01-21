@@ -20,12 +20,9 @@
 		A0E8542D6BA589E72AED3F82 /* libPods-MediaDiet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C405BE22F86954F9DDF8DBD /* libPods-MediaDiet.a */; };
 		AC0E8EC8E3A5015E0D5704E3 /* libPods-MediaDiet-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E180F735D635011E382434BC /* libPods-MediaDiet-tvOS.a */; };
 		C6B0731FE3D13E5D3E7C5D08 /* libPods-MediaDiet-MediaDietTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3336F15898BD2278B193AEC /* libPods-MediaDiet-MediaDietTests.a */; };
-		CF352FEB44894B8098E2606D /* GTAmerica-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A839ECD890794B669E1F660A /* GTAmerica-Bold.ttf */; };
-		7561AB2C65D947329892F71C /* GTAmerica-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BAF331EAEE284E3A9A1F7B74 /* GTAmerica-Medium.ttf */; };
 		5C8A3A4F123048CF8B75EB12 /* GTAmerica-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1575402285EB42EA9302E7F4 /* GTAmerica-Regular.ttf */; };
-		148A69547F0942C0AE8DC1A8 /* GTAmericaMono-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15A7DDC9E3C2431C8A7C75BC /* GTAmericaMono-Bold.ttf */; };
-		A038215CFA4B4C7086D039BC /* GTAmericaMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CB06985700944CFBF04CD28 /* GTAmericaMono-Medium.ttf */; };
 		651C3B947AE94E83929FFBC5 /* GTAmericaMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23997E600D9544DDA7B8533B /* GTAmericaMono-Regular.ttf */; };
+		E1CAD9D9D53C4ECD8D7E46A7 /* GTAmerica-ExpandedBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4D9ECF6C41345D89CDE8114 /* GTAmerica-ExpandedBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +76,8 @@
 		15A7DDC9E3C2431C8A7C75BC /* GTAmericaMono-Bold.ttf */ = {isa = PBXFileReference; name = "GTAmericaMono-Bold.ttf"; path = "../assets/fonts/GTAmericaMono-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		0CB06985700944CFBF04CD28 /* GTAmericaMono-Medium.ttf */ = {isa = PBXFileReference; name = "GTAmericaMono-Medium.ttf"; path = "../assets/fonts/GTAmericaMono-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		23997E600D9544DDA7B8533B /* GTAmericaMono-Regular.ttf */ = {isa = PBXFileReference; name = "GTAmericaMono-Regular.ttf"; path = "../assets/fonts/GTAmericaMono-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BE6C435578A04273A928B009 /* GTAmerica-ExpandedRegular.ttf */ = {isa = PBXFileReference; name = "GTAmerica-ExpandedRegular.ttf"; path = "../assets/fonts/GTAmerica-ExpandedRegular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B4D9ECF6C41345D89CDE8114 /* GTAmerica-ExpandedBold.ttf */ = {isa = PBXFileReference; name = "GTAmerica-ExpandedBold.ttf"; path = "../assets/fonts/GTAmerica-ExpandedBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +219,8 @@
 				15A7DDC9E3C2431C8A7C75BC /* GTAmericaMono-Bold.ttf */,
 				0CB06985700944CFBF04CD28 /* GTAmericaMono-Medium.ttf */,
 				23997E600D9544DDA7B8533B /* GTAmericaMono-Regular.ttf */,
+				BE6C435578A04273A928B009 /* GTAmerica-ExpandedRegular.ttf */,
+				B4D9ECF6C41345D89CDE8114 /* GTAmerica-ExpandedBold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -375,6 +376,8 @@
 				148A69547F0942C0AE8DC1A8 /* GTAmericaMono-Bold.ttf in Resources */,
 				A038215CFA4B4C7086D039BC /* GTAmericaMono-Medium.ttf in Resources */,
 				651C3B947AE94E83929FFBC5 /* GTAmericaMono-Regular.ttf in Resources */,
+				A15F5EBCE20E4FF89BA84358 /* GTAmerica-ExpandedRegular.ttf in Resources */,
+				E1CAD9D9D53C4ECD8D7E46A7 /* GTAmerica-ExpandedBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,16 +9,9 @@ export const spacing = {
 
 export const typography = {
   family: {
-    display: {
-        bold: "GTAmerica-Bold",
-        medium: "GTAmerica-Medium",
-        regular: "GTAmerica-Regular",
-    },
-    mono: {
-        bold: "GTAmericaMono-Bold",
-        medium: "GTAmericaMono-Medium",
-        regular: "GTAmericaMono-Regular",
-    },
+    body: "GTAmerica-Regular",
+    expanded: "GTAmerica-ExpandedBold",
+    mono: "GTAmericaMono-Regular",
   },
   size: {
     text: {

@@ -9,41 +9,58 @@ import {
   StatusBar,
   TextInput,
   Button,
+  SectionList,
 } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { v4 as uuidv4 } from 'react-native-uuid';
 
 import {
-  Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { RootStackParamList, RootStackRoutes } from '.';
-import { useDispatch } from '../store';
+import { AppState, useDispatch } from '../store';
 import { actions, MediaType } from '../store/log/slice';
 import { useSelector } from 'react-redux';
+import { colors, spacing, typography } from '../theme';
+import { groupBy } from "ramda";
+import { format } from 'date-fns';
+import { ListRow } from '../components/ListRow';
 
 type Props = StackScreenProps<RootStackParamList, RootStackRoutes.Home>;
 
 const HomeScreen = ({ navigation }: Props) => {
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const state = useSelector(state => state);
+  const groupedSections = useSelector((state: AppState) => {
+    const entries = state.log.entries.allIds.map(id => state.log.entries.byId[id]);
+
+    const groupedEntries = groupBy(entry => {
+      return format(new Date(entry.watchedTime), "MMMM yyyy")
+    }, entries);
+
+    const sections = Object.keys(groupedEntries).map(title => ({
+      title,
+      data: groupedEntries[title],
+    }))
+
+    return sections;
+  });
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={colors.background}
+        translucent
+      />
       <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
           <View style={styles.body}>
-            <TextInput
+          {/* <TextInput
               style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
               onChangeText={value => setValue(value)}
               value={value}
@@ -57,79 +74,52 @@ const HomeScreen = ({ navigation }: Props) => {
                 watchedTime: new Date()
               }))}
               title="Add"
-            />
+            /> */}
+            <SectionList
+              style={{ height: "100%" }}
+              sections={groupedSections}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item, index }) => {
+                const mediaTypeDescriptionMap = {
+                  [MediaType.Movie]: "Movie",
+                  [MediaType.TV]: "TV series",
+                  [MediaType.Book]: "Book",
+                  [MediaType.Short]: "Short",
+                  [MediaType.Play]: "Play",
+                  [MediaType.ShortStory]: "Short story,"
+                };
 
-            <Text>{JSON.stringify(state)}</Text>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+                return (
+                  <ListRow
+                    title={item.name}
+                    description={mediaTypeDescriptionMap[item.type]}
+                    // prefix={format(new Date(item.watchedTime), "dd")}
+                    prefix="04"
+                  />
+                )
+              }}
+              renderSectionHeader={({ section: { title } }) => (
+                <Text style={styles.sectionHeader}>{title}</Text>
+              )}
+            />
           </View>
-        </ScrollView>
       </SafeAreaView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
-      backgroundColor: Colors.lighter,
-    },
-    engine: {
-      position: 'absolute',
-      right: 0,
-    },
     body: {
-      backgroundColor: Colors.white,
+      backgroundColor: colors.backgroundAlt,
     },
-    sectionContainer: {
-      marginTop: 32,
-      paddingHorizontal: 24,
-    },
-    sectionTitle: {
-      fontSize: 24,
-      fontWeight: '600',
-      color: Colors.black,
-    },
-    sectionDescription: {
-      marginTop: 8,
-      fontSize: 18,
-      fontWeight: '400',
-      color: Colors.dark,
-    },
-    highlight: {
-      fontWeight: '700',
-    },
-    footer: {
-      color: Colors.dark,
-      fontSize: 12,
-      fontWeight: '600',
-      padding: 4,
-      paddingRight: 12,
-      textAlign: 'right',
-    },
+    sectionHeader: {
+      textTransform: "uppercase",
+      padding: spacing.m,
+      color: "#737480",
+      fontFamily: typography.family.mono,
+      fontSize: 14,
+      lineHeight: 20,
+    }
 });
 
 export default HomeScreen;
