@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,8 +7,11 @@ import {
   View,
   Text,
   StatusBar,
+  TextInput,
+  Button,
 } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
+import { v4 as uuidv4 } from 'react-native-uuid';
 
 import {
   Header,
@@ -18,10 +21,19 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import { RootStackParamList, RootStackRoutes } from '.';
+import { useDispatch } from '../store';
+import { actions, MediaType } from '../store/log/slice';
+import { useSelector } from 'react-redux';
 
 type Props = StackScreenProps<RootStackParamList, RootStackRoutes.Home>;
 
 const HomeScreen = ({ navigation }: Props) => {
+  const [value, setValue] = useState("");
+
+  const dispatch = useDispatch();
+
+  const state = useSelector(state => state);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -31,6 +43,23 @@ const HomeScreen = ({ navigation }: Props) => {
           style={styles.scrollView}>
           <Header />
           <View style={styles.body}>
+            <TextInput
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+              onChangeText={value => setValue(value)}
+              value={value}
+            />
+
+            <Button
+              onPress={() => dispatch(actions.logEntry({
+                id: uuidv4(),
+                name: value,
+                type: MediaType.Book,
+                watchedTime: new Date()
+              }))}
+              title="Add"
+            />
+
+            <Text>{JSON.stringify(state)}</Text>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
