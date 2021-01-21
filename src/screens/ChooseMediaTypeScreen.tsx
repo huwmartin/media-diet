@@ -1,34 +1,11 @@
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  TextInput,
-  Button,
-  SectionList,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {v4 as uuidv4} from 'react-native-uuid';
 
-import {
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import {RootStackParamList, RootStackRoutes} from '.';
-import {AppState, useDispatch} from '../store';
-import {actions, MediaType} from '../store/log/slice';
-import {useSelector} from 'react-redux';
+import {MediaType} from '../store/log/slice';
 import {colors, spacing, typography} from '../theme';
-import {groupBy} from 'ramda';
-import {format} from 'date-fns';
-import {ListRow} from '../components/ListRow';
 import {List} from '../components/List';
 import {ListLinkRow} from '../components/LinkListRow';
 
@@ -133,37 +110,6 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: colors.backgroundAlt,
     height: '100%',
-  },
-  sectionHeader: {
-    textTransform: 'uppercase',
-    padding: spacing.m,
-    color: '#737480',
-    fontFamily: typography.family.mono,
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  addButtonWrapper: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  addButton: {
-    width: 80,
-    height: 80,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 100,
-    backgroundColor: '#595D80',
-  },
-  addButtonText: {
-    textTransform: 'uppercase',
-    color: colors.foreground,
-    fontFamily: typography.family.expanded,
-    fontSize: typography.size.text.m,
-    lineHeight: typography.lineheight.body.m,
   },
 });
 

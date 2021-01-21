@@ -25,15 +25,7 @@ export function List<T>({
 }: Props<T>) {
   const margin = calculateMargin(props.margin);
 
-  const containerStyle = StyleSheet.flatten<ViewStyle>([
-    styles.container,
-    // withTopBorder && {
-    //   borderTopWidth: StyleSheet.hairlineWidth,
-    // },
-    // withBottomBorder && {
-    //   borderBottomWidth: StyleSheet.hairlineWidth,
-    // },
-  ]);
+  const containerStyle = StyleSheet.flatten<ViewStyle>([styles.container]);
 
   return (
     <View style={{...margin}}>

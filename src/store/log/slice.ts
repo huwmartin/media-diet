@@ -21,6 +21,7 @@ interface Entry {
   year: number;
   month: number;
   day: number;
+  episodes: number;
 }
 
 interface LogState {
@@ -50,6 +51,7 @@ export const {actions, reducer} = createSlice({
         type: MediaType;
         name: string;
         watchedTime: Date;
+        episodes?: Number;
       }>,
     ) => {
       const id = action.payload.id;
@@ -65,6 +67,7 @@ export const {actions, reducer} = createSlice({
         year: getYear(action.payload.watchedTime),
         month: getMonth(action.payload.watchedTime),
         day: getDate(action.payload.watchedTime),
+        episodes: action.payload.episodes,
       };
 
       state.entries.byId[id] = entrty;

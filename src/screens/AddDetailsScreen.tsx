@@ -7,30 +7,19 @@ import {
   View,
   Text,
   StatusBar,
-  Button,
-  SectionList,
   TouchableOpacity,
 } from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {v4 as uuidv4} from 'react-native-uuid';
 
-import {
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import {RootStackParamList, RootStackRoutes} from '.';
-import {AppState, useDispatch} from '../store';
+import {useDispatch} from '../store';
 import {actions, MediaType} from '../store/log/slice';
-import {useSelector} from 'react-redux';
 import {colors, spacing, typography} from '../theme';
-import {groupBy} from 'ramda';
-import {format} from 'date-fns';
-import {ListRow} from '../components/ListRow';
-import {List} from '../components/List';
-import {ListLinkRow} from '../components/LinkListRow';
+import {startOfYesterday} from 'date-fns';
 import {TextInput} from '../components/TextInput';
+import {Radio} from '../components/Radio';
+import {DateInput} from '../components/DateInput';
 
 type Props = StackScreenProps<RootStackParamList, RootStackRoutes.Details>;
 
@@ -38,6 +27,9 @@ const AddDetailsScreen = ({navigation, route}: Props) => {
   const type = route.params && route.params.type;
 
   const [name, setName] = useState('');
+  const [when, setWhen] = useState('');
+  const [episodeCount, setEpisodeCount] = useState('');
+  const [date, setDate] = useState(new Date().getTime());
 
   const dispatch = useDispatch();
 
@@ -78,6 +70,18 @@ const AddDetailsScreen = ({navigation, route}: Props) => {
               onChange={(value) => setName(value)}
             />
 
+            {type === MediaType.TV && (
+              <TextInput
+                margin="xl 0 0"
+                label="How many episodes did you watch?"
+                value={episodeCount}
+                onChange={(value) => setEpisodeCount(value)}
+                inputProps={{
+                  keyboardType: 'number-pad',
+                }}
+              />
+            )}
+
             <Text
               style={{
                 color: colors.midtone,
@@ -87,17 +91,60 @@ const AddDetailsScreen = ({navigation, route}: Props) => {
                 marginBottom: spacing.s,
                 marginTop: spacing.xl,
               }}>{`When did you ${verbage} it?`}</Text>
-            <View style={styles.optionsWrapper}></View>
+            <View style={styles.optionsWrapper}>
+              <Radio
+                margin="0 s 0 0"
+                label="Today"
+                value="today"
+                checked={when === 'today'}
+                onPress={(value) => setWhen(value)}
+              />
+
+              <Radio
+                margin="0 s 0 0"
+                label="Yesterday"
+                value="yesterday"
+                checked={when === 'yesterday'}
+                onPress={(value) => setWhen(value)}
+              />
+
+              <Radio
+                label="Other"
+                value="other"
+                checked={when === 'other'}
+                onPress={(value) => setWhen(value)}
+              />
+            </View>
+
+            {when === 'other' && (
+              <DateInput
+                margin="s 0 0"
+                date={date}
+                onDateSet={(value) => setDate(value)}
+                maxDate={new Date()}
+              />
+            )}
           </ScrollView>
           <View style={styles.addButtonWrapper}>
             <TouchableOpacity
               onPress={() => {
+                let watchedTime = new Date();
+
+                if (when === 'yesterday') {
+                  watchedTime = startOfYesterday();
+                } else if (when === 'other') {
+                  watchedTime = new Date(date);
+                }
+
                 dispatch(
                   actions.logEntry({
                     id: uuidv4(),
                     name: name,
                     type,
-                    watchedTime: new Date(),
+                    watchedTime,
+                    ...(type === MediaType.TV && episodeCount
+                      ? {episodes: Number(episodeCount)}
+                      : {}),
                   }),
                 );
 
@@ -120,14 +167,6 @@ const styles = StyleSheet.create({
     height: '100%',
     paddingTop: spacing.l,
     paddingHorizontal: spacing.m,
-  },
-  sectionHeader: {
-    textTransform: 'uppercase',
-    padding: spacing.m,
-    color: '#737480',
-    fontFamily: typography.family.mono,
-    fontSize: 14,
-    lineHeight: 20,
   },
   addButtonWrapper: {
     position: 'absolute',

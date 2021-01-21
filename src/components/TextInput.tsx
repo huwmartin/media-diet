@@ -6,8 +6,6 @@ import {
   TouchableWithoutFeedback,
   ViewStyle,
   StyleProp,
-  Animated,
-  TextStyle,
   TextInputProps,
   Text,
 } from 'react-native';
@@ -16,7 +14,7 @@ import {calculateMargin} from '../utils/margin';
 
 interface Props {
   value: string;
-  label: string;
+  label?: string;
   placeholder?: string;
   error?: string;
   onChange: (value: string) => void;
@@ -35,21 +33,6 @@ function getInputStyles(isFocused: boolean, isErroring: boolean) {
     result.borderColor = colors.error;
   } else if (isFocused) {
     result.borderColor = colors.foreground;
-  }
-
-  return result;
-}
-
-function getFocusRingStyles(isFocused: boolean, isErroring: boolean) {
-  const result: StyleProp<ViewStyle> = {
-    borderColor: 'transparent',
-    borderRadius: 8,
-    borderWidth: 2,
-    margin: -4,
-  };
-
-  if (isFocused) {
-    result.borderColor = isErroring ? colors.error : colors.foreground;
   }
 
   return result;
@@ -79,19 +62,21 @@ export const TextInput = (props: Props) => {
   }
 
   return (
-    <>
-      <Text
-        style={{
-          color: colors.midtone,
-          fontFamily: typography.family.body,
-          fontSize: typography.size.text.m,
-          lineHeight: typography.lineheight.body.m,
-          marginBottom: spacing.s,
-        }}>
-        {props.label}
-      </Text>
+    <View style={calculateMargin(props.margin)}>
+      {!!props.label && (
+        <Text
+          style={{
+            color: colors.midtone,
+            fontFamily: typography.family.body,
+            fontSize: typography.size.text.m,
+            lineHeight: typography.lineheight.body.m,
+            marginBottom: spacing.s,
+          }}>
+          {props.label}
+        </Text>
+      )}
       <TouchableWithoutFeedback onPress={focusInput}>
-        <View style={calculateMargin(props.margin)}>
+        <View>
           <View
             style={[
               styles.inputWrapper,
@@ -140,7 +125,7 @@ export const TextInput = (props: Props) => {
           ) : null}
         </View>
       </TouchableWithoutFeedback>
-    </>
+    </View>
   );
 };
 

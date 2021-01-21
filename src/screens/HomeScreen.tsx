@@ -1,29 +1,19 @@
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
   StatusBar,
-  TextInput,
-  Button,
   SectionList,
   TouchableOpacity,
 } from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {v4 as uuidv4} from 'react-native-uuid';
 
-import {
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {MainStackRoutes, RootStackParamList, RootStackRoutes} from '.';
-import {AppState, useDispatch} from '../store';
-import {actions, MediaType} from '../store/log/slice';
+import {RootStackParamList, RootStackRoutes} from '.';
+import {AppState} from '../store';
+import {MediaType} from '../store/log/slice';
 import {useSelector} from 'react-redux';
 import {colors, spacing, typography} from '../theme';
 import {groupBy} from 'ramda';
@@ -33,18 +23,20 @@ import {ListRow} from '../components/ListRow';
 type Props = StackScreenProps<RootStackParamList, RootStackRoutes.Main>;
 
 const HomeScreen = ({navigation}: Props) => {
-  // const [value, setValue] = useState("");
-
-  // const dispatch = useDispatch();
-
   const groupedSections = useSelector((state: AppState) => {
     const entries = state.log.entries.allIds.map(
       (id) => state.log.entries.byId[id],
     );
 
+    const sortedEntries = entries.sort((a, b) => {
+      return (
+        new Date(b.watchedTime).getTime() - new Date(a.watchedTime).getTime()
+      );
+    });
+
     const groupedEntries = groupBy((entry) => {
       return format(new Date(entry.watchedTime), 'MMMM yyyy');
-    }, entries);
+    }, sortedEntries);
 
     const sections = Object.keys(groupedEntries).map((title) => ({
       title,
@@ -63,26 +55,11 @@ const HomeScreen = ({navigation}: Props) => {
       />
       <SafeAreaView>
         <View style={styles.body}>
-          {/* <TextInput
-              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-              onChangeText={value => setValue(value)}
-              value={value}
-            />
-
-            <Button
-              onPress={() => dispatch(actions.logEntry({
-                id: uuidv4(),
-                name: value,
-                type: MediaType.Book,
-                watchedTime: new Date()
-              }))}
-              title="Add"
-            /> */}
           <SectionList
             style={{height: '100%'}}
             sections={groupedSections}
             keyExtractor={(item) => item.id}
-            renderItem={({item, index}) => {
+            renderItem={({item, index, section}) => {
               const mediaTypeDescriptionMap = {
                 [MediaType.Movie]: 'Movie',
                 [MediaType.TV]: 'TV series',
@@ -95,16 +72,22 @@ const HomeScreen = ({navigation}: Props) => {
                 [MediaType.Exhibition]: 'Exhibition',
               };
 
+              const isFirstOnDate =
+                section.data.findIndex((i) => i.day === item.day) === index;
+
               return (
                 <ListRow
-                  title={item.name}
+                  title={
+                    item.type === MediaType.TV && item.episodes
+                      ? `${item.name} (${item.episodes})`
+                      : item.name
+                  }
                   description={mediaTypeDescriptionMap[item.type]}
                   prefix={
-                    index === 0
+                    isFirstOnDate
                       ? format(new Date(item.watchedTime), 'dd')
                       : undefined
                   }
-                  // prefix="04"
                 />
               );
             }}
