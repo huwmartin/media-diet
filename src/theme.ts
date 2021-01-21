@@ -9,9 +9,9 @@ export const spacing = {
 
 export const typography = {
   family: {
-    body: "GTAmerica-Regular",
-    expanded: "GTAmerica-ExpandedBold",
-    mono: "GTAmericaMono-Regular",
+    body: 'GTAmerica-Regular',
+    expanded: 'GTAmerica-ExpandedBold',
+    mono: 'GTAmericaMono-Regular',
   },
   size: {
     text: {
@@ -44,8 +44,10 @@ export const typography = {
 };
 
 export const colors = {
-    background: "#13141B",
-    backgroundAlt: "#292A33",
-    midtone: "#737480",
-    foreground: "#FFFFFF",
-}
+  background: '#13141B',
+  backgroundAlt: '#292A33',
+  midtone: '#737480',
+  foreground: '#FFFFFF',
+  foregroundAlt: '#DADBE5',
+  error: '#737480',
+};

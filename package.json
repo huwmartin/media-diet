@@ -21,6 +21,7 @@
     "@types/redux-persist": "^4.3.1",
     "buffer": "^6.0.3",
     "date-fns": "^2.16.1",
+    "prettier": "^2.2.1",
     "ramda": "^0.27.1",
     "react": "16.13.1",
     "react-native": "0.63.4",
@@ -28,6 +29,7 @@
     "react-native-reanimated": "^1.13.2",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.15.2",
+    "react-native-svg": "^12.1.0",
     "react-native-uuid": "^1.4.9",
     "react-redux": "^7.2.2",
     "redux-persist": "^6.0.0"
