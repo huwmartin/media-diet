@@ -14,11 +14,11 @@ export const ListRow = ({ title, description, prefix, children }: Props) => {
   return (
     <View style={containerStyle}>
       <View>
-        {prefix && <Text style={styles.prefix}>{prefix}</Text>}
+        {!!prefix && <Text style={styles.prefix}>{prefix}</Text>}
       </View>
       <View style={styles.fill}>
-        {title && <Text style={styles.title}>{title}</Text>}
-        {description ? (
+        {!!title && <Text style={styles.title}>{title}</Text>}
+        {!!description ? (
           <Text style={styles.description}>
             {description}
           </Text>
